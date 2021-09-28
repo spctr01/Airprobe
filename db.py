@@ -1,7 +1,18 @@
 import sqlite3 as sl 
+import hashlib
+import os
 
 con = sl.connect('user-data.db')
 cur = con.cursor()
+
+
+
+#create hash of password
+def hash_pas(pas):
+        h = hashlib.md5(pas.encode())
+        password_hash = h.hexdigest()
+
+        return password_hash
 
 
 #checks if table exists or not (users database)
@@ -11,11 +22,16 @@ cur.execute(''' SELECT count(name) FROM sqlite_master
 
 
 if cur.fetchone()[0] !=1 :
+        p1 = hash_pas('1234')
+        p2 = hash_pas('password')
+        print(p2)
+
         cur.execute('''CREATE TABLE 'users'(
                 "username"  TEXT,
                 "password"  TEXT);''')
-        cur.execute("INSERT INTO 'users' VALUES ('root','1234');")
-        cur.execute("INSERT INTO 'users' VALUES ('admin','password');")
+        cur.execute("INSERT INTO 'users' VALUES ('root','{}');".format(p1))
+        cur.execute("INSERT INTO 'users' VALUES ('admin','{}');".format(p2))
+
 
 
 
@@ -25,7 +41,9 @@ def validate(usr, pas):
         creds = con.execute(sql)
 
         values = creds.fetchall()
-        if values and values[0][1] == pas:
+        password = hash_pas(pas)
+
+        if values and values[0][1] == password:
                 return True
 
         return False
@@ -47,7 +65,8 @@ def new_user(usr,pas):
         if user_exists(usr) == True:
                 return 'User already exists:'
 
-        sql = "INSERT INTO 'users' VALUES ('{}','{}');".format(usr,pas)
+        password = hash_pas(pas)
+        sql = "INSERT INTO 'users' VALUES ('{}','{}');".format(usr,password)
         try:
                 cur.execute(sql)
         except Exception as  e:
@@ -67,6 +86,7 @@ def update_user(user,cmd):
 
         if cmd[0] == '-p':
                 new_pass = cmd[1]
+                new_pass = hash_pas(new_pass)
                 sql = "UPDATE users SET password ='{}' WHERE username='{}';".format(new_pass,user)
                 
                 try:
