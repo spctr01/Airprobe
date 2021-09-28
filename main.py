@@ -14,7 +14,7 @@ command_help = '''
     ----------Commands Help Menu----------
 
     exit :  Exit the Program
-    --coorhelp : help menu
+    --help : help menu
 
     [Users creation, deletion, Updation]
 
@@ -86,7 +86,7 @@ def execute_command(cmd):
         data= weather.weather(command[0], command[1:])
 
     else:
-        print("Enter a Valid command or type help")
+        print("Enter a Valid command or type --help")
         
 
 # Takes contineous input from user.
@@ -103,7 +103,7 @@ while True:
         
 
     elif command == '':
-        print('Enter Something! or type help ')
+        print('Enter Something! or type --help ')
 
     else:
         execute_command(command)
