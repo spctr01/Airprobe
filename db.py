@@ -58,7 +58,46 @@ def new_user(usr,pas):
         return 'User Created:'
 
 
-#delete user
+def update_user(user,cmd):
+        user = user
+
+        if user_exists(user) == False:
+                return 'check username user not found'
+
+
+        if cmd[0] == '-p':
+                new_pass = cmd[1]
+                sql = "UPDATE users SET password ='{}' WHERE username='{}';".format(new_pass,user)
+                
+                try:
+                        cur.execute(sql)
+                except Exception as  e:
+                        print(e)
+                        return "User's passward  not updated"
+
+                con.commit()
+                return 'User password Updated Successfully:'
+
+
+
+        elif cmd[0] == '-u':
+                new_usr = cmd[1]
+                sql = "UPDATE users SET username ='{}' WHERE username='{}';".format(new_usr,user)
+
+                try:
+                        cur.execute(sql)
+                except Exception as  e:
+                        print(e)
+                        return "Username  not updated"
+
+                con.commit()
+                return 'Username Updated Successfully:'
+        
+
+
+
+
+#delete user except root user
 def remove_user(usr):
         if user_exists(usr) == False or usr=='root':
                 return 'User not found:Enter a valid Username / user is "root" '
@@ -75,25 +114,8 @@ def all_users():
         for x in cur:
                 print(x[0])
 
-
-
-# new_user('dd','56757')
-
-# cur.execute("SELECT * FROM users")
-# print('d',cur.fetchall())
-
-
 con.commit()
 
-# z =validate('dd','567sd57')
-
-# print(z)
-
-# remove_user('dd')
-# cur.execute("SELECT * FROM users")
-# print('ee',cur.fetchall())
-# cur.execute("SELECT username FROM users")
-# print(cur.fetchall())
 
 
 

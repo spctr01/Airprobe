@@ -1,9 +1,9 @@
+import os
 import requests , json
 import datetime
 from datetime import datetime, timedelta
 
 api_key = '0b2bf94be643dd6af52cce220e8390d4'
-
 
 
 
@@ -41,7 +41,6 @@ def current(lat, lon):
     r = requests.get('https://api.openweathermap.org/data/2.5/onecall?lat={}&lon={}&units={}&appid={}'.format(lat,lon,'imperial',api_key))
     data = r.json()
     
-    weather = data['current']['weather'][0]['main']
     humidity = data['current']['humidity']
     pressure = data['current']['pressure']
     wind_speed = data['current']['wind_speed']
@@ -49,16 +48,17 @@ def current(lat, lon):
     avg_temp = data['current']['temp']
     uv = data['current']['uvi']
 
-    print("Weather: {}\n Hummidity: {}\n Pressure: {} hPa\n Wind Speed: {}\n Wind Degree: {}\n Average Temperature: {}\n UV Index: {} "
-                                                            .format( weather, humidity,pressure,wind_speed,wind_deg,avg_temp,uv))
+    os.system('clear')
+    print("Hummidity: {}\n Pressure: {} hPa\n Wind Speed: {}\n Wind Degree: {}\n Average Temperature: {}\n UV Index: {} "
+                                                            .format( humidity,pressure,wind_speed,wind_deg,avg_temp,uv))
 
-
+# if date is in next week
 def forecaste(lat, lng,idx):
     r =requests.get('http://api.openweathermap.org/data/2.5/onecall?lat={}&lon={}&appid={}&units=imperial'.format(lat,lng,api_key))
     data = r.json()
     data = data['daily'][1]
 
-    weather = data['weather'][0]['main']
+    
     humidity = data['humidity']
     pressure = data['pressure']
     wind_speed = data['wind_speed']
@@ -66,11 +66,11 @@ def forecaste(lat, lng,idx):
     avg_temp = data['temp']['day']
     uv = data['uvi']
 
-    print("Weather: {}\n Hummidity: {}\n Pressure: {} hPa\n Wind Speed: {}\n Wind Degree: {}\n Average Temperature: {}\n UV Index: {} "
-                                                            .format( weather, humidity,pressure,wind_speed,wind_deg,avg_temp,uv))
+    os.system('clear')
+    print("Hummidity: {}\n Pressure: {} hPa\n Wind Speed: {}\n Wind Degree: {}\n Average Temperature: {}\n UV Index: {} "
+                                                            .format( humidity,pressure,wind_speed,wind_deg,avg_temp,uv))
 
 
-#nforecaste(40.730610,-73.935242,1)
 
 def weather(inf, cmd):
     today =  str(now)
@@ -83,11 +83,9 @@ def weather(inf, cmd):
             lon, lat = coordinates(cmd[0])
         except Exception as e:
             print("type help for more")
-         
     else:  
         lon, lat = cmd[0], cmd[1]
         date = cmd[2]
-    
     
 # if wether is in  next 7 days
     if date == today:
@@ -102,30 +100,8 @@ def weather(inf, cmd):
             weather_data = forecaste(lat,lon,index) 
         except Exception as e:
             return "Make sure data entered is correct"
-
     else:
         return 'Please check the date and commands or type "help"'
 
-
     
     return weather_data
-
-
-    
-
-    # current(lat, lon)
-
-    
-
-    
-
-
-
-
-
-# x,y = long_lat('Kangra') 
-# print(location_forecaste( x,y))  
-
-# t =  str(now)
-# t = t[5:10]
-# print(t)
