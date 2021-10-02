@@ -29,11 +29,6 @@ def login_validator():
 
 
 
-
-
-
-
-
 #execute the commands / users inputs
 def execute_command(cmd):
     command =cmd.split()
