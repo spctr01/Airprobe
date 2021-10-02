@@ -43,6 +43,8 @@ Airprove
     |--__init__.py :  __init__ file
     |
     |-- testing.py : unit tests for the program
+    |
+    |-- help.txt : contains help menu
 ```
 ------
 ## Commands Help Menu
