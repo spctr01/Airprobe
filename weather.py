@@ -25,7 +25,6 @@ def date(unix):
     
 
 
-
 # returns latitide and longitude of place
 def coordinates(city):
     r =requests.get('http://api.openweathermap.org/data/2.5/weather?q={}&appid={}&units=metric'.format(city,api_key))
@@ -43,8 +42,6 @@ def coordinates(city):
 
     
 
-
-
 # prints current weather of place 
 def current(lat, lon):
     r = requests.get('https://api.openweathermap.org/data/2.5/onecall?lat={}&lon={}&units={}&appid={}'.format(lat,lon,'imperial',api_key))
@@ -60,8 +57,6 @@ def current(lat, lon):
     os.system('clear')
     return("\n Hummidity: {}\n Pressure: {} hPa\n Wind Speed: {}\n Wind Degree: {}\n Average Temperature: {}\n UV Index: {} "
                                                             .format( humidity,pressure,wind_speed,wind_deg,avg_temp,uv))
-
-
 
 
 
@@ -86,26 +81,22 @@ def forecaste(lat, lng,idx):
 
 
 
-
-
 def weather(inf, cmd):
     if inf =='city':  # if city name it gets the coordinates of city from coordinate function.
         date = cmd[1]
         lon, lat = coordinates(cmd[0])   
-
     else: 
         date = cmd[2] 
         lon, lat = cmd[0], cmd[1]
         
     
-# if wether is in  next 7 days
+    # if wether is in  next 7 days
     if date == today:
         try:
             return current(lat,lon) 
         except Exception as e:
             return '''Make sure "city_name" or 
                     "latitude/longitude" entered is correct'''
-
     elif date in week:
         index = week.index(date)
         try:
