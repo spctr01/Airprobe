@@ -1,0 +1,34 @@
+----------Commands Help Menu----------
+
+    exit :  Exit the Program
+    --help : help menu
+
+    [Users creation, deletion, Updation]
+
+    1. create : to create new user 
+                eg: create username password
+
+    2. delete : delete a user
+                eg: delete username
+
+    3. all : view all the users 
+
+    4. update : update user and password
+        |
+        |------update username
+        |        eg: update username -u new_username
+        | 
+        |------ update password
+        |         eg : update username -p new_password
+
+    [Weather information]
+
+    1: city : weather by city name
+             [ city <city_name> <date(month-date)>  ]
+              eg: city Delhi 09-28  
+
+    2: coord : weather by coordinates
+                [coord  latitude longitude data]
+                  eg: coord 28.644800 77.216721 09-28
+
+    
